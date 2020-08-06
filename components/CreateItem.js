@@ -29,11 +29,11 @@ const CREATE_ITEM_MUTATION = gql`
 
 export default class CreateItem extends Component {
   state = {
-    title: 'This is My TITLE',
-    description: 'Hello me hi hi hi adfafasfasfafsdfafa',
+    title: '',
+    description: '',
     image: '',
     largeImage: '',
-    price: 999,
+    price: 0,
   };
 
   handleChange = e => {
@@ -43,7 +43,33 @@ export default class CreateItem extends Component {
     this.setState({ [name]: val })
   };
 
+  uploadFile = async e => {
+    // console.log('Uploading FIle...');
+    const files = e.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'nextjs-store');
+
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/ddz8cmo2p/image/upload',
+      { method: 'POST', body: data }
+    );
+    const file = await res.json();
+    console.log('file:', file);
+    this.setState({
+      image: file.secure_url,
+      largeImage: file.eager[0].secure_url,
+    })
+  }
+
   render() {
+    const {
+      title,
+      image,
+      price,
+      description,
+    } = this.state;
+
     return (
       <Mutation 
         mutation={CREATE_ITEM_MUTATION}
@@ -62,11 +88,24 @@ export default class CreateItem extends Component {
             
           }}>
             <Error error={error} />
-            <fieldset disable={loading} aria-busy={loading}>
+            <fieldset disable={loading.toString()} aria-busy={loading}>
+              <label htmlFor="file">
+                Image
+                <input 
+                  name="file" 
+                  type="file" 
+                  id="file" 
+                  required
+                  placeholder="Upload an Image" 
+                  onChange={this.uploadFile}
+                />
+                {image && <img src={image} width="200" alt= "Upload Preview" />}
+              </label>
+
               <label htmlFor="title">
                 Title
                 <input 
-                  value={this.state.title}
+                  value={title}
                   placeholder="Title" 
                   name="title" 
                   type="text" 
@@ -79,7 +118,7 @@ export default class CreateItem extends Component {
               <label htmlFor="price">
                 Price
                 <input 
-                  value={this.state.price}
+                  value={price}
                   placeholder="Price" 
                   name="price" 
                   type="number" 
@@ -92,7 +131,7 @@ export default class CreateItem extends Component {
               <label htmlFor="description">
                 Description
                 <textarea 
-                  value={this.state.description}
+                  value={description}
                   placeholder="Enter A Description" 
                   name="description" 
                   id="description" 
