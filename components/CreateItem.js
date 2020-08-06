@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 
 import Form from './styles/Form';
 import formatMoney from '../lib/formatMoney';
@@ -53,7 +54,12 @@ export default class CreateItem extends Component {
             e.preventDefault();
             // Call the Mutation
             const res = await createItem();
-            console.log('res:', res)
+            // Change them to the Single Item Page
+            Router.push({
+              pathname: '/item',
+              query: { id: res.data.createItem.id },
+            })
+            
           }}>
             <Error error={error} />
             <fieldset disable={loading} aria-busy={loading}>
