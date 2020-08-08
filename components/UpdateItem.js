@@ -20,14 +20,16 @@ const SINGLE_ITEM_QUERY =  gql`
 
 const UPDATE_ITEM_MUTATION = gql`
   mutation UPDATE_ITEM_MUTATION (
-    $title: String!
-    $description: String!
-    $price: Int!
+    $id: ID!,
+    $title: String,
+    $description: String,
+    $price: Int
   ) {
     updateItem (
-      title: $title
-      description: $description
-      price: $price
+      id: $id,
+      title: $title,
+      description: $description,
+      price: $price,
     ) {
       id
       title
@@ -47,11 +49,16 @@ export default class UpdateItem extends Component {
     this.setState({ [name]: val })
   };
 
-  updateItem = (e, updateItemMutation) => {
+  updateItem =  async (e, updateItemMutation) => {
     e.preventDefault();
-    console.log('Updating Item!!!!')
-    console.log(this.state);
-  }
+    const res = await updateItemMutation({
+      variables: {
+        id: this.props.id,
+        ...this.state,
+      }
+    });
+    console.log('Updated')
+  }; 
 
   render() {
     return (
@@ -111,7 +118,7 @@ export default class UpdateItem extends Component {
                         onChange={this.handleChange}
                       />
                     </label>
-                    <button type="submit">Save Changes</button>
+                    <button type="submit">Sav{loading ? 'ing' : 'e'}</button>
                   </fieldset>
                 </Form>
               )}
