@@ -47,6 +47,12 @@ export default class UpdateItem extends Component {
     this.setState({ [name]: val })
   };
 
+  updateItem = (e, updateItemMutation) => {
+    e.preventDefault();
+    console.log('Updating Item!!!!')
+    console.log(this.state);
+  }
+
   render() {
     return (
       <Query query={SINGLE_ITEM_QUERY} variables={{id: this.props.id }}>
@@ -64,17 +70,7 @@ export default class UpdateItem extends Component {
               variables={this.state}
             >
               {(updateItem, { loading, error }) => (
-                <Form onSubmit={ async e => {
-                  e.preventDefault();
-                  // Call the Mutation
-                  const res = await updateItem();
-                  // Change them to the Single Item Page
-                  Router.push({
-                    pathname: '/item',
-                    query: { id: res.data.updateItem.id },
-                  })
-                  
-                }}>
+                <Form onSubmit={e => this.updateItem(e, updateItem)}>
                   <Error error={error} />
                   <fieldset disable={loading.toString()} aria-busy={loading}>
 
