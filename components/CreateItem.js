@@ -71,7 +71,8 @@ export default class CreateItem extends Component {
     } = this.state;
 
     return (
-      <Mutation 
+      <Mutation
+        // refetchQueries={}
         mutation={CREATE_ITEM_MUTATION}
         variables={this.state}
       >

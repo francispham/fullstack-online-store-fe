@@ -42,6 +42,7 @@ export default class Items extends Component {
         <Query 
           query={ALL_ITEMS_QUERY} 
           variables={{ skip: page * perPage - perPage }}
+          // fetchPolicy="network-only"
         >
           {({data, error, loading }) => {
             if (loading) return <p>Loading...</p>;
