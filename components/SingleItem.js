@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
+import Head from 'next/head';
 
 import Error from './ErrorMessage';
 
@@ -48,6 +49,9 @@ export default class SingleItem extends Component {
           
           return (
             <SingleItemStyles>
+              <Head>
+                <title>NextJS Head | {title}</title>
+              </Head>
               <img src={largeImage} alt={title} />
               <div className="details">
                 <h2>Viewing {title}</h2>
