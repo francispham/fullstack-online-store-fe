@@ -8,6 +8,7 @@ const Nav = () => (
       {/* Second Layer Data Destructuring */}
       {({ data: { me } }) => {
         console.log('me:', me);
+        if (!me) return null;
         return <p>Current User</p>;
       }}
     </User>

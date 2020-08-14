@@ -24,3 +24,5 @@ User.propTypes = {
 };
 
 export default User;
+// This Query will be imported into Signin.js for Refreshing Query in Nav.js
+export { CURRENT_USER_QUERY };
