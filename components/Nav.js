@@ -1,8 +1,16 @@
 import Link from 'next/link';
 import NavStyles from './styles/NavStyles';
+import User from './User';
 
 const Nav = () => (
   <NavStyles>
+    <User>
+      {/* Second Layer Data Destructuring */}
+      {({ data: { me } }) => {
+        console.log('me:', me);
+        return <p>Current User</p>;
+      }}
+    </User>
     <Link href="/items">
       <a>Shop</a>
     </Link>
