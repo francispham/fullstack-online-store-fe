@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import Form from './styles/Form';
 import Error from './ErrorMessage';
+import { CURRENT_USER_QUERY } from './User';
 
 const RESET_MUTATION = gql`
   mutation RESET_MUTATION($resetToken: String!, $password: String!, $confirmPassword: String!) {
@@ -40,6 +41,7 @@ export default class Reset extends Component {
           password: this.state.password,
           confirmPassword: this.state.confirmPassword
         }}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(reset, { error, loading, called }) =>(
           <Form method="post" onSubmit={ async e => {
