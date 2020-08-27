@@ -13,7 +13,7 @@ const LOCAL_STATE_QUERY = gql`
   }
 `;
 
-const TOGGLE_CART_MUTATION =gql`
+const TOGGLE_CART_MUTATION = gql`
   mutation {
     toggleCart @client
   }
@@ -43,4 +43,4 @@ const Cart = () => (
 );
 
 export default Cart;
-export { LOCAL_STATE_QUERY };
+export { LOCAL_STATE_QUERY, TOGGLE_CART_MUTATION };
