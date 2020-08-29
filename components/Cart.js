@@ -3,6 +3,7 @@ import gql from 'graphql-tag';
 import { Query, Mutation } from 'react-apollo';
 
 import User from './User';
+import CartItem from './CartItem';
 
 import Supreme from './styles/Supreme';
 import SickButton from './styles/SickButton';
@@ -40,6 +41,11 @@ const Cart = () => (
                       {me.cart.length === 1 ? '' : 's'} in your cart.
                     </p>
                   </header>
+                  <ul>
+                    {me.cart.map(
+                      cartItem => <CartItem key={cartItem.id} cartItem={cartItem} />
+                    )}
+                  </ul>
                   <footer>
                     <p>$10.00</p>
                     <SickButton>Checkout</SickButton>
