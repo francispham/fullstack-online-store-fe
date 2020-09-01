@@ -17,7 +17,6 @@ export default class DeleteItem extends Component {
     // Manually Update the Cache on the Client, so it matches the Server
     // 1. Read the Cache for the Items wanted
     const data = cache.readQuery({ query: ALL_ITEMS_QUERY });
-    console.log('data:', data)
     // 2. Filter the Deleted Item out of the Page
     data.items = data.items.filter(
       item => item.id !== payload.data.deleteItem.id

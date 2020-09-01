@@ -4,7 +4,6 @@ import gql from 'graphql-tag';
 import Router from 'next/router';
 
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 
 const CREATE_ITEM_MUTATION = gql`
@@ -38,13 +37,11 @@ export default class CreateItem extends Component {
 
   handleChange = e => {
     const { name, type, value } = e.target;
-    // console.log('value:', value)
     const val = type === 'number' ? parseFloat(value) : value;
     this.setState({ [name]: val })
   };
 
   uploadFile = async e => {
-    // console.log('Uploading FIle...');
     const files = e.target.files;
     const data = new FormData();
     data.append('file', files[0]);
