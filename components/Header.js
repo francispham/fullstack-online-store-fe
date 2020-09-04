@@ -3,6 +3,7 @@ import Router from 'next/router';
 
 
 import Nav from './Nav';
+import Search from './Search';
 import Cart from './Cart';
 import NProgress from 'nprogress';
 
@@ -70,7 +71,7 @@ const Header = () => (
       <Nav />
     </div>
     <div className="sub-bar">
-      <p>Search</p>
+      <Search />
     </div>
     <Cart />
   </StyledHeader>
