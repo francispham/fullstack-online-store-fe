@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import styled from 'styled-components';
 
 import Item from './Item';
+import Search from './Search';
 import Pagination from './Pagination';
 import { perPage } from '../config';
 
@@ -37,6 +38,7 @@ export default class Items extends Component {
     const { page } = this.props
     return (
       <Center>
+        <Search />
         <Pagination page={page} />
         <Query 
           query={ALL_ITEMS_QUERY} 

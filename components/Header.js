@@ -3,7 +3,6 @@ import Router from 'next/router';
 
 
 import Nav from './Nav';
-import Search from './Search';
 import Cart from './Cart';
 import NProgress from 'nprogress';
 
@@ -59,7 +58,6 @@ const StyledHeader = styled.header`
   }
 `;
 
-
 const Header = () => (
   <StyledHeader>
     <div className="bar">
@@ -71,7 +69,6 @@ const Header = () => (
       <Nav />
     </div>
     <div className="sub-bar">
-      <Search />
     </div>
     <Cart />
   </StyledHeader>
