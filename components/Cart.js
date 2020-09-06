@@ -5,6 +5,7 @@ import { Query, Mutation } from 'react-apollo';
 
 import User from './User';
 import CartItem from './CartItem';
+import Checkout from './Checkout';
 
 import Supreme from './styles/Supreme';
 import SickButton from './styles/SickButton';
@@ -55,7 +56,9 @@ const Cart = () => (
           </ul>
           <footer>
             <p>{formatMoney(calcTotalPrice(me.cart))}</p>
-            <SickButton>Checkout</SickButton>
+            <Checkout>
+              <SickButton>Checkout</SickButton>
+            </Checkout>
           </footer>
         </CartStyles>
       );
