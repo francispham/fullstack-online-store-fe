@@ -25,16 +25,16 @@ const CREATE_ORDER_MUTATION = gql`
 `;
 
 class Checkout extends React.Component {
-  onToken = (res, createOrder) => {
-    console.log('res:', res);
+  onToken = async (res, createOrder) => {
     // Manually Call the Mutation once we have the Stripe Token
-    createOrder({
+    const order = await createOrder({
       variables: {
         token: res.id
       },
     }).catch(err => {
       alert(err.message);
     });
+    console.log('order:', order)
   };
 
   render() {
@@ -50,7 +50,10 @@ class Checkout extends React.Component {
                 amount={calcTotalPrice(me.cart)}
                 name="Next Store"
                 description={`Order of ${totalItems(me.cart)} items!`}
-                image={me.cart[0].item && me.cart[0].item.image} // Check & Display Image
+                image={
+                  me.cart.length && me.cart[0].item && 
+                  me.cart[0].item.image
+                } // Check & Display Image
                 stripeKey="pk_test_powbTm7SuxCdQafatiw61KQm"
                 email={me.email}
                 currency="CAD"
