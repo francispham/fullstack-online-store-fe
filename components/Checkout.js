@@ -1,8 +1,10 @@
 import React from 'react';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import { Mutation } from 'react-apollo';
 import StripeCheckout from 'react-stripe-checkout';
 
+import NProgress from 'nprogress';
 import User, { CURRENT_USER_QUERY } from './User';
 import calcTotalPrice from '../lib/calcTotalPrice';
 
@@ -26,6 +28,7 @@ const CREATE_ORDER_MUTATION = gql`
 
 class Checkout extends React.Component {
   onToken = async (res, createOrder) => {
+    NProgress.start();
     // Manually Call the Mutation once we have the Stripe Token
     const order = await createOrder({
       variables: {
@@ -34,7 +37,10 @@ class Checkout extends React.Component {
     }).catch(err => {
       alert(err.message);
     });
-    console.log('order:', order)
+    Router.push({
+      pathname: '/order',
+      query: { id: order.data.createOrder.id },
+    })
   };
 
   render() {
